@@ -1,0 +1,8 @@
+{
+    "steps": [
+        {
+            "action": "get",
+            "url": "https://www.google.com/"
+        }
+    ]
+}
