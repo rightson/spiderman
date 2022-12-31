@@ -3,6 +3,15 @@
         {
             "action": "get",
             "url": "https://www.google.com/"
+        },
+        {
+            "action": "send_keys",
+            "xpath": "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input",
+            "key": "https://github.com/rightson/"
+        },
+        {
+            "action": "click",
+            "xpath": "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]"
         }
     ]
 }
