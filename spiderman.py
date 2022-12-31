@@ -9,7 +9,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from chrome_driver import getChromeDriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from ocr import png2Integer
 
 
@@ -18,7 +19,10 @@ class Spiderman:
         self.WAIT_TIMEOUT = wait_timeout
         self.OCR_TMP_PATH = ocr_tmp_path
         self.flow = self.load_flow(flow)
-        self.chrome = webdriver.Chrome(getChromeDriver())
+        service = Service(ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        self.chrome = webdriver.Chrome(service=service, options=options)
 
     def load_flow(self, path):
         if not os.path.exists(path):
