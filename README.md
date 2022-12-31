@@ -2,7 +2,7 @@
 
 This is a data-driven selenium wrapper.
 
-You can simply control the browser by defining the flow file.
+This tool can help you control the web browser by simply defining the flow file (JSON) without writing the code.
 
 ## Define the flow file
 
@@ -49,6 +49,7 @@ Available actions and action data are:
   - xpath
   - key
 
+If you need more actions, feel free to let me know or just extend it (PR is welcome). Thanks!
 
 ## Run the code
 
