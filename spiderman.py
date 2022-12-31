@@ -48,8 +48,8 @@ class Spiderman:
                     self.window(step['index'])
                 elif step['action'] == 'ocr':
                     self.ocr(step['img_xpath'],
-                            step['regen_xpath'],
-                            step['input_xpath'])
+                             step['regen_xpath'],
+                             step['input_xpath'])
                 elif step['action'] == 'send_keys':
                     self.send_keys(step['xpath'], step['key'])
                 elif step['action'] == 'pause':
@@ -124,7 +124,8 @@ if __name__ == '__main__':
     version = 'Version 1.0.0'
     parser = argparse.ArgumentParser(description='%s (%s)' % (name, version))
     parser.add_argument('steps', type=str, help='Steps file (JSON)')
-    parser.add_argument('--halt', action='store_true', help='Halt chrome after steps completed')
+    parser.add_argument('--halt', action='store_true',
+                        help='Halt chrome after steps completed')
     args = parser.parse_args()
 
     if not args.steps:
