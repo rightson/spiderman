@@ -2,12 +2,12 @@
 
 This is a data-driven selenium wrapper.
 
-This tool can help you control the web browser by simply defining the flow file (JSON) without writing the code.
+This tool can help you navigate the web browser by simply defining a series of steps without writing the code.
 
-## Define the flow file
+## Define the steps
 
-Create a flow file and define desired steps.
-Each step should be composed of an `action` and some action data.
+First, you should create a JSON file and define desired steps in an array.
+Each step should be contain an `action` and its corresponding action data.
 For example:
 
 ```json
@@ -31,7 +31,7 @@ For example:
 
 ```
 
-Available actions and action data are:
+There are 6 available actions and corresponding action data:
 - `get`
   - url
 - `select`
