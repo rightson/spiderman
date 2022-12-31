@@ -35,25 +35,37 @@ class Spiderman:
                 sys.exit(-1)
             return result
 
-    def run(self):
-        for step in self.flow['steps']:
-            if step['action'] == 'get':
-                self.get(step['url'])
-            elif step['action'] == 'select':
-                self.select(step['xpath'], step['text'])
-            elif step['action'] == 'click':
-                self.click(step['xpath'])
-            elif step['action'] == 'window':
-                self.window(step['index'])
-            elif step['action'] == 'ocr':
-                self.ocr(step['img_xpath'],
-                         step['regen_xpath'],
-                         step['input_xpath'])
-            elif step['action'] == 'send_keys':
-                self.send_keys(step['xpath'], step['key'])
-            else:
-                print('Unknown action %s' % step['action'])
-        input('Press Enter to close chrome')
+    def run(self, halt):
+        try:
+            for step in self.flow['steps']:
+                if step['action'] == 'get':
+                    self.get(step['url'])
+                elif step['action'] == 'select':
+                    self.select(step['xpath'], step['text'])
+                elif step['action'] == 'click':
+                    self.click(step['xpath'])
+                elif step['action'] == 'window':
+                    self.window(step['index'])
+                elif step['action'] == 'ocr':
+                    self.ocr(step['img_xpath'],
+                            step['regen_xpath'],
+                            step['input_xpath'])
+                elif step['action'] == 'send_keys':
+                    self.send_keys(step['xpath'], step['key'])
+                elif step['action'] == 'pause':
+                    input('[pause] Press Enter to continue... ')
+                else:
+                    print('Unknown action %s' % step['action'])
+            if halt:
+                input('[halt] Press Enter to continue... ')
+        except KeyboardInterrupt:
+            self.__del__()
+
+    def __del__(self):
+        sys.stdout.write('[close] closing chrome... ')
+        sys.stdout.flush()
+        self.chrome.close()
+        print('done')
 
     def get(self, url):
         print('[get] url=%s' % url)
@@ -78,7 +90,6 @@ class Spiderman:
         except Exception as e:
             print('Error: unable to switch to window %s due to %s' %
                   (index, str(e)))
-            input('Press Enter to continue...')
 
     def ocr(self, img_xpath, regen_xpath, input_xpath):
         while True:
@@ -112,12 +123,13 @@ if __name__ == '__main__':
     name = 'Spiderman'
     version = 'Version 1.0.0'
     parser = argparse.ArgumentParser(description='%s (%s)' % (name, version))
-    parser.add_argument('flow', type=str, help='Flow file')
+    parser.add_argument('steps', type=str, help='Steps file (JSON)')
+    parser.add_argument('--halt', action='store_true', help='Halt chrome after steps completed')
     args = parser.parse_args()
 
-    if not args.flow:
+    if not args.steps:
         parser.print_help()
         sys.exit(-1)
 
-    peter = Spiderman(args.flow)
-    peter.run()
+    peter = Spiderman(args.steps)
+    peter.run(halt=args.halt)

@@ -25,13 +25,16 @@ For example:
         {
             "action": "click",
             "xpath": "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]"
+        },
+        {
+            "action": "pause"
         }
     ]
 }
 
 ```
 
-There are 6 available actions and corresponding action data:
+Available actions and corresponding action data are listed as below:
 - `get`
   - url
 - `select`
@@ -48,13 +51,14 @@ There are 6 available actions and corresponding action data:
 - `send_keys`
   - xpath
   - key
+- `pause`
 
 If you need more actions, feel free to let me know or just extend it (PR is welcome). Thanks!
 
 ## Run the code
 
 ```
-python spiderman.py your_flow.json
+python spiderman.py steps.json
 ```
 
 Enjoy : )
